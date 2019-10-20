@@ -5,6 +5,10 @@ public class Main {
 
 
     public static void main(String... args) throws Throwable {
+        System.out.println("enter key");
+
+
+        System.out.println("enter cleartext:");
         InputStream bufferedInputStream = new BufferedInputStream(System.in);
         boolean hasKey = false;
         char[] key = new char[BoxConstants.BLOCK_LENGTH];

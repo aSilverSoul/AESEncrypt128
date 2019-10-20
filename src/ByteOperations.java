@@ -131,29 +131,18 @@ public class ByteOperations {
         addRoundKey(state, roundKey);//add key round
     }
 
-    /**
-     * Creates the round key matrix from the expanded key. Only uses
-     * the first 16 bytes of the expanded key.
-     *
-     * @param expandedKey Expanded key to be used.
-     * @return The round key matrix of the expanded key's first 16 bytes.
-     */
-    //
+    //create round key matrix from expanded key used 16 bytes of expanded key
     private static void createRoundKey(char[] expandedKey, int from) {
         fillInitialMatrix(expandedKey, roundKey, from);
     }
 
-    /**
-     * Mixes the given column by multiplying it with a matrix.
-     * <p/>
-     * The matrix used is:
-     * 2 3 1 1
-     * 1 2 3 1
-     * 1 1 2 3
-     * 3 1 1 2
-     *
-     * @param column Column to be mixed.
-     */
+
+     //Mixes the given column by multiplying it with a matrix.
+    //matrix used:
+     // 2 3 1 1
+     //1 2 3 1
+     //1 1 2 3
+     //3 1 1 2
     private static void mixColumn(char[] column) {
         int n = BoxConstants.BLOCK_LENGTH / 4;
 
@@ -181,12 +170,7 @@ public class ByteOperations {
                 galoisMult(mixColumnCopy[1], (char) 1)),
                 galoisMult(mixColumnCopy[0], (char) 3));
     }
-
-    /**
-     * Shifts the word 1 step to the left.
-     *
-     * @param word Word to be modified.
-     */
+    //shifts the word 1 step to the left
     private static void rotate(char[] word) {
         char first = word[0];
         for (int i = 0; i < 3; ++i) {
@@ -196,13 +180,7 @@ public class ByteOperations {
         word[3] = first;
     }
 
-    /**
-     * Applies the core rotation, sbox permutation and
-     * XOR operation with the given RCON value.
-     *
-     * @param word  Word to be modified.
-     * @param round The current round.
-     */
+    //sbox permutaion and xor with rcon
     private static void applyCore(char[] word, int round) {
         rotate(word);
         for (int i = 0; i < 4; ++i) {
@@ -212,12 +190,8 @@ public class ByteOperations {
         word[0] = xor(word[0], BoxConstants.getRCONValue((char) round));
     }
 
-    /**
-     * Expands the given key to 176 bytes instead of 16.
-     *
-     * @param key Key to be expanded.
-     * @return The expanded 176 bytes key.
-     */
+
+    //expands key to 176 bytes instead of 32
     private static char[] keyExpansion(char[] key) {
         int n = BoxConstants.BLOCK_LENGTH / 4;
         int currentSize = 0;
@@ -249,12 +223,7 @@ public class ByteOperations {
         return expandedKey;
     }
 
-    /**
-     * Converts an array of bytes to an array of chars.
-     *
-     * @param bytes Bytes to be converted.
-     * @return The converted char array.
-     */
+    //bytes to char conversion
     public static char[] byteArrayToCharArray(byte[] bytes) {
         for (int i = 0; i < charsFromBytes.length; ++i) {
             charsFromBytes[i] = (char) (bytes[i] < 0 ? bytes[i] + (1 << 8) : bytes[i]);
@@ -263,11 +232,7 @@ public class ByteOperations {
         return charsFromBytes;
     }
 
-    /**
-     * Returns the byte array of the final AES encryption state matrix.
-     *
-     * @param finalState The final state of the AES encryption state matrix.
-     */
+    //returns byte array for the final aes state matrix
     public static byte[] createEncryptionByteArray(char[][] finalState) {
         for (int i = 0; i < BoxConstants.BLOCK_LENGTH; ++i) {
             int y = i % 4;
@@ -278,13 +243,7 @@ public class ByteOperations {
         return output;
     }
 
-    /**
-     * Applies a 10 round AES encryption for the state matrix, using the
-     * supplied key. Returns the resulting cipher.
-     *
-     * @param key The key to be used in the encryption, must be 128 bits.
-     * @return The encrypted byte array.
-     */
+    //10 round aes for state matrix
     public static byte[] AES(char[] key) {
         char[] expandedKey = keyExpansion(key);
 

@@ -28,19 +28,12 @@ public class BoxConstants {
             0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16
     };
 
-    /**
-     * Getter for the S-box table.
-     *
-     * @param position Index position.
-     * @return The S-box value.
-     */
+//sbox getter
     public static char getSboxValue(int position) {
         return sbox[position];
     }
 
-    /**
-     * RCON table used in the AES encryption.
-     */
+//rcon used for aes encrypt
     private static final char[] RCON = {
             0x8d, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, 0x6c, 0xd8,
             0xab, 0x4d, 0x9a, 0x2f, 0x5e, 0xbc, 0x63, 0xc6, 0x97, 0x35, 0x6a, 0xd4, 0xb3,
@@ -64,19 +57,12 @@ public class BoxConstants {
             0x66, 0xcc, 0x83, 0x1d, 0x3a, 0x74, 0xe8, 0xcb
     };
 
-    /**
-     * Getter for the RCON table.
-     *
-     * @param position Index position.
-     * @return The RCON value.
-     */
+//getter for rcon
     public static char getRCONValue(int position) {
         return RCON[position];
     }
 
-    /**
-     * Predefined logarithm array table for Galois Multiplication.
-     */
+//log for galois mult
     public static char ltable[] = {
             0x00, 0xff, 0xc8, 0x08, 0x91, 0x10, 0xd0, 0x36,
             0x5a, 0x3e, 0xd8, 0x43, 0x99, 0x77, 0xfe, 0x18,
@@ -112,19 +98,12 @@ public class BoxConstants {
             0x68, 0x1b, 0x64, 0x04, 0x06, 0xbf, 0x83, 0x38
     };
 
-    /**
-     * Getter for the LTable table.
-     *
-     * @param position Index position.
-     * @return The LTable value.
-     */
+//getter for atable
     public static char getLTableValue(int position) {
         return ltable[position];
     }
 
-    /**
-     * Predefined antilog array table for Galois Multiplication.
-     */
+//array for galois mult
     public static char atable[] = {
             0x01, 0xe5, 0x4c, 0xb5, 0xfb, 0x9f, 0xfc, 0x12,
             0x03, 0x34, 0xd4, 0xc4, 0x16, 0xba, 0x1f, 0x36,
@@ -160,12 +139,7 @@ public class BoxConstants {
             0xaa, 0xcd, 0x9a, 0xa0, 0x75, 0x54, 0x0e, 0x01
     };
 
-    /**
-     * Getter for the ATable table.
-     *
-     * @param position Index position.
-     * @return The LTable value.
-     */
+    //getter
     public static char getATableValue(int position) {
         return atable[position];
     }
