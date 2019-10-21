@@ -1,21 +1,33 @@
-import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Main {
 
 
+    //String path = "C:\\Users\\garym\\Desktop\\bigBean.txt";
     public static void main(String... args) throws Throwable {
+        String []z=args[0].split("\\.");
+        if(z[1].equals("txt")){
+            z[1]=".enc";
+        }
         System.out.println("enter key");
+        Scanner scan= new Scanner(System.in);\
+        
 
+        File initialFile = new File(args[0]);
+        InputStream targetStream = new FileInputStream(initialFile);
 
-        System.out.println("enter cleartext:");
-        InputStream bufferedInputStream = new BufferedInputStream(System.in);
         boolean hasKey = false;
         char[] key = new char[BoxConstants.BLOCK_LENGTH];
         byte[] bytes;
         while (true) {
             bytes = new byte[BoxConstants.BLOCK_LENGTH];
-            int next = bufferedInputStream.read(bytes);
+            int next = targetStream.read(bytes);
             if (next == -1) break;
             char[] input = ByteOperations.byteArrayToCharArray(bytes);
 
@@ -25,19 +37,21 @@ public class Main {
                 }
                 hasKey = true;
             } else {
-                System.out.println(BoxConstants.BLOCK_LENGTH);
-                enc(key, input);
+                byte data[] = enc(key, input);
+                FileOutputStream out = new FileOutputStream(z[0]+z[1]);
+                out.write(data);
+                out.close();
             }
         }
     }
      //Encrypts then prints
     //key and plaintext used
-    private static void enc(char[] key, char[] plainText) {
+    private static byte[] enc(char[] key, char[] plainText) {
         ByteOperations.fillInitialStateMatrix(plainText);
 
         byte[] encryption = ByteOperations.AES(key);
         try {
-            System.out.write(encryption);
+            return encryption;
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.exit(-1);
