@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
@@ -16,8 +14,10 @@ public class Main {
             z[1]=".enc";
         }
         System.out.println("enter key");
-        Scanner scan= new Scanner(System.in);\
-        
+        Scanner scan= new Scanner(System.in);
+        String stringKey=scan.nextLine();
+
+
 
         File initialFile = new File(args[0]);
         InputStream targetStream = new FileInputStream(initialFile);
@@ -51,11 +51,12 @@ public class Main {
 
         byte[] encryption = ByteOperations.AES(key);
         try {
-            return encryption;
+            System.out.write(encryption);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             System.exit(-1);
         }
+        return encryption;
     }
 
 }
