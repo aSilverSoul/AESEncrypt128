@@ -1,3 +1,5 @@
+//Gary Machorro
+//CS4600
 public class BoxConstants {
 
     static final int BLOCK_LENGTH = 16;

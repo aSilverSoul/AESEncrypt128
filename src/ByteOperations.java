@@ -1,3 +1,5 @@
+//Gary Machorro
+//CS4600
 public class ByteOperations {
 
     //Static expanded key.
